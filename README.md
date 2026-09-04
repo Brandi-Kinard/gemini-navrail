@@ -1,5 +1,9 @@
 # Gemini NavRail
 
+<p align="center">
+  <img src="assets/navrail-key-moments.gif" alt="Key Moments rail — headings parsed live from Gemini responses, smooth-scroll on click" width="720">
+</p>
+
 A Chrome MV3 extension that injects a native-feeling "Key Moments" rail into [gemini.google.com](https://gemini.google.com/app). As model responses stream in, the rail parses `h2`/`h3` headings (plus standalone bold mini-headers) from every assistant turn and presents them as smooth-scroll anchors in a persistent right-side Material 3 sidebar.
 
 ## Install (unpacked)
