@@ -39,7 +39,7 @@ Content scripts are loaded in dependency order (`theme-bridge` → `heading-extr
 
 ## Verify selectors after install
 
-The plan flagged the message-level selectors (`model-response`, `user-query`, `message-content`) as unverified — they were inferred from Gemini's compiled custom-element manifest but not observed in a live conversation. Run this in the DevTools console on `gemini.google.com/app` **after sending a prompt with at least one response**:
+Gemini's DOM changes without notice, so the message-level selectors (`model-response`, `user-query`, `message-content`) should be re-verified after any Gemini update. Run this in the DevTools console on `gemini.google.com/app` after sending a prompt with at least one response:
 
 ```js
 (() => {
@@ -57,7 +57,7 @@ The plan flagged the message-level selectors (`model-response`, `user-query`, `m
 })();
 ```
 
-Paste the output. If `responseMatches` or `queryMatches` is 0, the extractor's primary selector list needs adjustment — the rail will already warn in the console (`[GNR] Primary selector ... missed`).
+If `responseMatches` or `queryMatches` is 0, the extractor's primary selector list needs adjustment — the rail already warns in the console (`[GNR] Primary selector ... missed`).
 
 ## Architecture notes
 
@@ -69,13 +69,13 @@ Paste the output. If `responseMatches` or `queryMatches` is 0, the extractor's p
 - **SPA route changes** are intercepted by monkey-patching `history.pushState` / `replaceState` and listening for `popstate`. Switching conversations clears the turn map and rebuilds.
 - **Selector fallbacks**: every Gemini selector has a prioritized list. Falling past the first option emits a single `console.warn` — that's the canary for a Google rename.
 
-## Known risks (from plan)
+## Known limitations
 
 - `model-response` / `user-query` selectors are unverified against a real conversation. First post-install task is the verify snippet above.
 - Smooth-scroll could fight with Gemini's auto-scroll-to-bottom during streaming. A 500ms click-lock guards anchor clicks, but heavy streaming may still feel jumpy.
 - Mobile viewports < 1100px hide the rail entirely.
 
-## Roadmap if it lands
+## Roadmap
 
 - Per-turn collapse (fold older turns when conversation gets long).
 - Drag-to-resize.
