@@ -71,7 +71,7 @@ If `responseMatches` or `queryMatches` is 0, the extractor's primary selector li
 
 ## Known limitations
 
-- `model-response` / `user-query` selectors are unverified against a real conversation. First post-install task is the verify snippet above.
+- Selectors can drift when Gemini ships DOM changes — the verify snippet above is the check.
 - Smooth-scroll could fight with Gemini's auto-scroll-to-bottom during streaming. A 500ms click-lock guards anchor clicks, but heavy streaming may still feel jumpy.
 - Mobile viewports < 1100px hide the rail entirely.
 
